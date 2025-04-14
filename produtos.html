@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - Street Style & Co</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/produtos.css">
+    <link rel="carrinho" href="scripts/carrinho.js">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">Street Style & Co</div>
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="index.html#sobre">Sobre Nós</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="index.html#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="carrinho-container">
+                <div class="carrinho-icon">
+                    <span class="carrinho-contador">0</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+                </div>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+    <!-- Mini Carrinho -->
+<div class="mini-carrinho">
+    <div class="mini-carrinho-header">
+        <h3>Seu Carrinho</h3>
+        <button class="fechar-carrinho">&times;</button>
+    </div>
+    <div class="mini-carrinho-itens">
+        <!-- Os itens do carrinho serão inseridos via JavaScript -->
+    </div>
+    <div class="mini-carrinho-footer">
+        <div class="mini-carrinho-total">
+            <span>Total:</span>
+            <span class="valor-total">R$ 0,00</span>
+        </div>
+        <a href="carrinho.html" class="btn-ver-carrinho">Ver Carrinho</a>
+        <a href="checkout.html" class="btn-finalizar">Finalizar Compra</a>
+    </div>
+</div>
+<div class="mini-carrinho-overlay"></div>
+
+    <section class="banner-produtos">
+        <div class="container">
+            <h1>NOSSA COLEÇÃO</h1>
+            <p>Roupas que expressam sua personalidade</p>
+        </div>
+    </section>
+
+    <section class="filtros-produtos">
+        <div class="container">
+            <div class="filtros-container">
+                <div class="categorias">
+                    <h3>Categorias</h3>
+                    <ul class="filtros-lista">
+                        <li><a href="#" class="filtro-ativo" data-categoria="todos">Todos</a></li>
+                        <li><a href="#" data-categoria="camisetas">Camisetas</a></li>
+                        <li><a href="#" data-categoria="moletons">Moletons</a></li>
+                        <li><a href="#" data-categoria="calcas">Calças</a></li>
+                        <li><a href="#" data-categoria="acessorios">Acessórios</a></li>
+                    </ul>
+                </div>
+                
+                <div class="ordem-produtos">
+                    <h3>Ordenar por</h3>
+                    <select id="ordenarPor">
+                        <option value="relevancia">Relevância</option>
+                        <option value="preco-baixo">Preço: Menor para Maior</option>
+                        <option value="preco-alto">Preço: Maior para Menor</option>
+                        <option value="lancamento">Mais Recentes</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="listagem-produtos">
+        <div class="container">
+            <div class="resultados-info">
+                <p>Mostrando <span id="quantidade-produtos">12</span> produtos</p>
+            </div>
+            
+            <div class="produtos-grid">
+                <!-- Camisetas -->
+                <div class="produto-card" data-categoria="camisetas" data-preco="99.90" data-lancamento="2025-01-15">
+                    <div class="produto-imagem">
+                        <img src="imagens/camiseta-cidade.jpg" alt="Camiseta Cidade">
+                        <div class="produto-overlay">
+                            <button class="ver-rapido">Ver rápido</button>
+                        </div>
+                    </div>
+                    <h4>Camiseta Cidade</h4>
+                    <p class="preco">R$ 99,90</p>
+                    <div class="cores-disponiveis">
+                        <span class="cor-opcao cor-preta"></span>
+                        <span class="cor-opcao cor-branca"></span>
+                        <span class="cor-opcao cor-cinza"></span>
+                    </div>
+                    <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="produto-card" data-categoria="camisetas" data-preco="89.90" data-lancamento="2025-02-10">
+                    <div class="produto-imagem">
+                        <img src="imagens/camiseta-grafite.jpg" alt="Camiseta Grafite">
+                        <div class="produto-overlay">
+                            <button class="ver-rapido">Ver rápido</button>
+                        </div>
+                    </div>
+                    <h4>Camiseta Grafite</h4>
+                    <p class="preco">R$ 89,90</p>
+                    <div class="cores-disponiveis">
+                        <span class="cor-opcao cor-preta"></span>
+                        <span class="cor-opcao cor-branca"></span>
+                    </div>
+                    <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="produto-card" data-categoria="camisetas" data-preco="109.90" data-lancamento="2025-03-05">
+                    <div class="produto-imagem">
+                        <img src="imagens/camiseta-urbana.jpg" alt="Camiseta Urbana">
+                        <div class="produto-overlay">
+                            <button class="ver-rapido">Ver rápido</button>
+                        </div>
+                    </div>
+                    <h4>Camiseta Urbana</h4>
+                    <p class="preco">R$ 109,90</p>
+                    <div class="cores-disponiveis">
+                        <span class="cor-opcao cor-preta"></span>
+                        <span class="cor-opcao cor-branca"></span>
+                        <span class="cor-opcao cor-verde"></span>
+                    </div>
+                    <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+                </div>
+                
+                <!-- Moletons -->
+                <div class="produto-card" data-categoria="moletons" data-preco="149.90" data-lancamento="2025-02-01">
+                    <div class="produto-imagem">
+                        <img src="imagens/moletom-urbano.jpg" alt="Moletom Urbano">
+                        <div class="produto-overlay">
+                            <button class="ver-rapido">Ver rápido</button>
+                        </div>
+                    </div>
+                    <h4>Moletom Urbano</h4>
+                    <p class="preco">R$ 149,90</p>
+                    <div class="cores-disponiveis">
+                        <span class="cor-opcao cor-preta"></span>
+                        <span class="cor-opcao cor-cinza"></span>
+                    </div>
+                    <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="produto-card" data-categoria="moletons" data-preco="179.90" data-lancamento="2025-01-20">
+                    <div class="produto-imagem">
+                        <img src="imagens/moletom-street.jpg" alt="Moletom Street">
+                        <div class="produto-overlay">
+                            <button class="ver-rapido">Ver rápido</button>
+                        </div>
+                    </div>
+                    <h4>Moletom Street</h4>
+                    <p class="preco">R$ 179,90</p>
+                    <div class="cores-disponiveis">
+                        <span class="cor-opcao cor-preta"></span>
+                        <span class="cor-opcao cor-cinza"></span>
+                        <span class="cor-opcao cor-marrom"></span>
+                    </div>
+                    <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="produto-card" data-categoria="moletons" data-preco="169.90" data-lancamento="2025-03-15">
+                    <div class="produto-imagem">
+                        <img src="imagens/moletom-grafismo.jpg" alt="Moletom Grafismo">
+                        <div class="produto-overlay">
+                            <button class="ver-rapido">Ver rápido</button>
+                        </div>
+                    </div>
+                    <h4>Moletom Grafismo</h4>
+                    <p class="preco">R$ 169,90</p>
+                    <div class="cores-disponiveis">
+                        <span class="cor-opcao cor-preta"></span>
+                        <span class="cor-opcao cor-branca"></span>
+                    </div>
+                    <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+                </div>
+                
+                <!-- Calças -->
+                <div class="produto-card" data-categoria="calcas" data-preco="159.90" data-lancamento="2025-02-20">
+                    <div class="produto-imagem">
+                        <img src="imagens/calca-cargo.jpg" alt="Calça Cargo">
+                        <div class="produto-overlay">
+                            <button class="ver-rapido">Ver rápido</button>
+                        </div>
+                    </div>
+                    <h4>Calça Cargo</h4>
+                    <p class="preco">R$ 159,90</p>
+                    <div class="cores-disponiveis">
+                        <span class="cor-opcao cor-preta"></span>
+                        <span class="cor-opcao cor-bege"></span>
+                    </div>
+                    <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="produto-card" data-categoria="calcas" data-preco="139.90" data-lancamento="2025-01-25">
+                    <div class="produto-imagem">
+                        <img src="imagens/calca-street.jpg" alt="Calça Street">
+                        <div class="produto-overlay">
+                            <button class="ver-rapido">Ver rápido</button>
+                        </div>
+                    </div>
+                    <h4>Calça Street</h4>
+                    <p class="preco">R$ 139,90</p>
+                    <div class="cores-disponiveis">
+                        <span class="cor-opcao cor-preta"></span>
+                        <span class="cor-opcao cor-cinza"></span>
+                    </div>
+                    <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="produto-card" data-categoria="calcas" data-preco="179.90" data-lancamento="2025-03-10">
+                    <div class="produto-imagem">
+                        <img src="imagens/calca-skateboard.jpg" alt="Calça Skateboard">
+                        <div class="produto-overlay">
+                            <button class="ver-rapido">Ver rápido</button>
+                        </div>
+                    </div>
+                    <h4>Calça Skateboard</h4>
+                    <p class="preco">R$ 179,90</p>
+                    <div class="cores-disponiveis">
+                        <span class="cor-opcao cor-preta"></span>
+                        <span class="cor-opcao cor-marrom"></span>
+                    </div>
+                    <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+                </div>
+                
+                <!-- Acessórios -->
+                <div class="produto-card" data-categoria="acessorios" data-preco="59.90" data-lancamento="2025-02-05">
+                    <div class="produto-imagem">
+                        <img src="imagens/bone-urbano.jpg" alt="Boné Urbano">
+                        <div class="produto-overlay">
+                            <button class="ver-rapido">Ver rápido</button>
+                        </div>
+                    </div>
+                    <h4>Boné Urbano</h4>
+                    <p class="preco">R$ 59,90</p>
+                    <div class="cores-disponiveis">
+                        <span class="cor-opcao cor-preta"></span>
+                        <span class="cor-opcao cor-branca"></span>
+                    </div>
+                    <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="produto-card" data-categoria="acessorios" data-preco="49.90" data-lancamento="2025-01-30">
+                    <div class="produto-imagem">
+                        <img src="imagens/touca-street.jpg" alt="Touca Street">
+                        <div class="produto-overlay">
+                            <button class="ver-rapido">Ver rápido</button>
+                        </div>
+                    </div>
+                    <h4>Touca Street</h4>
+                    <p class="preco">R$ 49,90</p>
+                    <div class="cores-disponiveis">
+                        <span class="cor-opcao cor-preta"></span>
+                        <span class="cor-opcao cor-cinza"></span>
+                        <span class="cor-opcao cor-marrom"></span>
+                    </div>
+                    <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="produto-card" data-categoria="acessorios" data-preco="89.90" data-lancamento="2025-03-20">
+                    <div class="produto-imagem">
+                        <img src="imagens/bolsa-urbana.jpg" alt="Bolsa Urbana">
+                        <div class="produto-overlay">
+                            <button class="ver-rapido">Ver rápido</button>
+                        </div>
+                    </div>
+                    <h4>Bolsa Urbana</h4>
+                    <p class="preco">R$ 89,90</p>
+                    <div class="cores-disponiveis">
+                        <span class="cor-opcao cor-preta"></span>
+                        <span class="cor-opcao cor-bege"></span>
+                    </div>
+                    <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+            
+            <div class="paginacao">
+                <button class="pagina pagina-ativa">1</button>
+                <button class="pagina">2</button>
+                <button class="pagina">3</button>
+                <span class="separador">...</span>
+                <button class="pagina">8</button>
+                <button class="pagina-prox">Próxima &raquo;</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Modal de Visualização Rápida -->
+    <div id="modalProduto" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar-modal">&times;</span>
+            <div class="modal-produto">
+                <div class="modal-produto-imagem">
+                    <img id="modalImagem" src="" alt="Imagem do Produto">
+                </div>
+                <div class="modal-produto-info">
+                    <h2 id="modalTitulo"></h2>
+                    <p class="modal-preco" id="modalPreco"></p>
+                    <div class="modal-cores">
+                        <h4>Cores:</h4>
+                        <div class="modal-opcoes-cores" id="modalCores">
+                            <!-- As cores serão inseridas via JavaScript -->
+                        </div>
+                    </div>
+                    <div class="modal-tamanhos">
+                        <h4>Tamanhos:</h4>
+                        <div class="modal-opcoes-tamanhos">
+                            <button class="opcao-tamanho">P</button>
+                            <button class="opcao-tamanho">M</button>
+                            <button class="opcao-tamanho">G</button>
+                            <button class="opcao-tamanho">GG</button>
+                        </div>
+                    </div>
+                    <div class="modal-quantidade">
+                        <h4>Quantidade:</h4>
+                        <div class="controle-quantidade">
+                            <button class="diminuir-quantidade">-</button>
+                            <input type="number" value="1" min="1" max="10" id="quantidadeProduto">
+                            <button class="aumentar-quantidade">+</button>
+                        </div>
+                    </div>
+                    <button class="modal-adicionar-carrinho">Adicionar ao Carrinho</button>
+                    <div class="modal-descricao">
+                        <h4>Descrição:</h4>
+                        <p id="modalDescricao">Descrição detalhada do produto selecionado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>RECEBA NOSSAS NOVIDADES</h2>
+                <p>Seja o primeiro a conhecer nossos lançamentos e promoções exclusivas.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Seu melhor e-mail">
+                    <button class="botao-newsletter">Inscrever-se</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Street Style & Co</h3>
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="index.html#sobre">Sobre Nós</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="index.html#contato">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="links-sociais">
+                    <a href="#" class="icone-social">FB</a>
+                    <a href="#" class="icone-social">IG</a>
+                    <a href="#" class="icone-social">TW</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Street Style & Co. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/index.js"></script>
+    <script src="scripts/produtos.js"></script>
+</body>
+</html>
