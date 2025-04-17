@@ -1,5 +1,5 @@
 // Carrinho de compras
-let carrinho = [];
+let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 const miniCarrinho = document.querySelector('.mini-carrinho');
 const miniCarrinhoOverlay = document.querySelector('.mini-carrinho-overlay');
 const carrinhoContador = document.querySelector('.carrinho-contador');
@@ -10,6 +10,9 @@ const resumoSubtotal = document.querySelector('.resumo-subtotal');
 const resumoValorTotal = document.querySelector('.resumo-valor-total');
 const btnLimparCarrinho = document.querySelector('.btn-limpar-carrinho');
 const recomendadosGrid = document.querySelector('.recomendados-grid');
+const aplicarCupomBtn = document.querySelector('.aplicar-cupom');
+
+console.log(carrinho);
 
 // Funções auxiliares
 function formatarPreco(preco) {
@@ -18,12 +21,6 @@ function formatarPreco(preco) {
 
 // Inicializar carrinho do localStorage
 function inicializarCarrinho() {
-    const carrinhoSalvo = localStorage.getItem('carrinho');
-    
-    if (carrinhoSalvo) {
-        carrinho = JSON.parse(carrinhoSalvo);
-    }
-    
     atualizarContadorCarrinho();
     renderizarCarrinho();
     renderizarMiniCarrinho();
@@ -43,7 +40,7 @@ function atualizarContadorCarrinho() {
 
 // Calcular total do carrinho
 function calcularTotalCarrinho() {
-    return carrinho.reduce((total, item) => total + (item.preco * item.quantidade), 0);
+    return carrinho.reduce((total, item) => total + item.preco, 0);
 }
 
 // Renderizar mini carrinho
@@ -110,7 +107,7 @@ function renderizarCarrinho() {
         
         carrinhoItem.innerHTML = `
             <div class="item-produto">
-                <img src="${item.imagem}" alt="${item.nome}" class="item-imagem">
+                <img src="${"./images/" + item.nome.toLowerCase().trim().replace(" ", "-") + ".jpg"}" alt="${item.nome}" class="item-imagem">
                 <div class="item-info">
                     <h4>${item.nome}</h4>
                     <p>${item.categoria || 'Moda Urbana'}</p>
@@ -120,11 +117,11 @@ function renderizarCarrinho() {
             <div class="item-quantidade-container">
                 <div class="item-quantidade">
                     <button class="btn-quantidade btn-diminuir" data-id="${item.id}">-</button>
-                    <input type="text" class="quantidade-valor" value="${item.quantidade}" readonly>
+                    <input type="text" class="quantidade-valor" value="${item.quantidade || 1}" readonly>
                     <button class="btn-quantidade btn-aumentar" data-id="${item.id}">+</button>
                 </div>
             </div>
-            <div class="item-subtotal">${formatarPreco(item.preco * item.quantidade)}</div>
+            <div class="item-subtotal">${formatarPreco(item.preco * (item.quantidade || 1))}</div>
             <div class="item-acoes">
                 <button class="btn-remover" data-id="${item.id}">&times;</button>
             </div>
@@ -233,25 +230,25 @@ const produtosRecomendados = [
         id: 'p001',
         nome: 'Camiseta Street Urban',
         preco: 79.90,
-        imagem: 'imagens/produto1.jpg'
+        imagem: 'images/produto1.jpg'
     },
     {
         id: 'p002',
         nome: 'Calça Jeans Destroyed',
         preco: 159.90,
-        imagem: 'imagens/produto2.jpg'
+        imagem: 'images/produto2.jpg'
     },
     {
         id: 'p003',
         nome: 'Tênis Casual Urban',
         preco: 199.90,
-        imagem: 'imagens/produto3.jpg'
+        imagem: 'images/produto3.jpg'
     },
     {
         id: 'p004',
         nome: 'Boné Aba Reta Style',
         preco: 69.90,
-        imagem: 'imagens/produto4.jpg'
+        imagem: 'images/produto4.jpg'
     }
 ];
 

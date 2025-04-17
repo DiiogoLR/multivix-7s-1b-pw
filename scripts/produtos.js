@@ -168,9 +168,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Botões de adicionar ao carrinho
-    const botoesAddCarrinho = document.querySelectorAll('.adicionar-carrinho, .modal-adicionar-carrinho');
-    botoesAddCarrinho.forEach(botao => {
-        botao.addEventListener('click', function() {
+    const cardProdutos = document.querySelectorAll('.produto-card');
+    cardProdutos.forEach(card => {
+        card.querySelector(".adicionar-carrinho").addEventListener('click', () => {
+            console.log(card);
+            console.log("ai meu cu 2")
+
+            const nome = card.querySelector("h4").textContent;
+            const precoString = card.querySelector(".preco").textContent.trim().replace(",", ".").replace("R$ ", "").trim();
+            const preco = parseFloat(precoString);
+
+            const lista = JSON.parse(localStorage.getItem("carrinho")) || [];
+            const novoId = lista.length > 0 ? lista[lista.length - 1].id + 1 : 1;
+          
+            const item = {
+              id: novoId,
+              nome,
+              preco
+            };
+          
+            lista.push(item);
+            localStorage.setItem("carrinho", JSON.stringify(lista));
+
+            // Exibe o carrinho no console
+            console.log("Itens no carrinho:", JSON.parse(localStorage.getItem("carrinho")) || []);
+
             // Simulação de adição ao carrinho
             const mensagem = document.createElement('div');
             mensagem.classList.add('mensagem-carrinho');
@@ -192,13 +214,14 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 mensagem.style.opacity = '0';
                 mensagem.style.transition = 'opacity 0.5s ease';
-                
+
                 setTimeout(() => {
                     document.body.removeChild(mensagem);
                 }, 500);
             }, 3000);
         });
-    });
+    }
+    );
 
     // Paginação
     const botoesPagina = document.querySelectorAll('.pagina, .pagina-prox');
