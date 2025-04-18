@@ -2,7 +2,7 @@
 
 /* Banner da página de produtos */
 .banner-produtos {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('imagens/banner-produtos.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/Fundo1.png');
     background-size: cover;
     background-position: center;
     color: var(--texto-claro);
@@ -148,6 +148,10 @@
 
 .produto-card:hover .produto-overlay {
     opacity: 1;
+}
+
+.descricao-produto-oculta{
+    display: none;
 }
 
 .ver-rapido {

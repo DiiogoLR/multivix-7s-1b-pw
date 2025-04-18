@@ -1,6 +1,6 @@
 // Script para a página de produtos
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // Elementos do DOM
     const produtosGrid = document.querySelector('.produtos-grid');
     const todosCards = document.querySelectorAll('.produto-card');
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const quantidadeProdutos = document.getElementById('quantidade-produtos');
     const modalProduto = document.getElementById('modalProduto');
     const fecharModal = document.querySelector('.fechar-modal');
-    const botaoVerRapido = document.querySelectorAll('.ver-rapido');
+    // const botaoVerRapido = document.querySelectorAll('.ver-rapido');
     const modalImagem = document.getElementById('modalImagem');
     const modalTitulo = document.getElementById('modalTitulo');
     const modalPreco = document.getElementById('modalPreco');
@@ -22,6 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
     const menu = document.querySelector('.menu');
 
+    // Lista produtos API
+    let produtosApi = await fetchProdutos();
+
+    console.log("Produtos carregados da API:");
+    console.log(produtosApi);
+
     // Menu mobile toggle
     if (menuToggle) {
         menuToggle.addEventListener('click', function() {
@@ -29,6 +35,42 @@ document.addEventListener('DOMContentLoaded', function() {
             menuToggle.classList.toggle('menu-ativo');
         });
     }
+
+    function adicionarProdutosNaTela(produtosApi) {
+        const produtosGrid = document.querySelector('.produtos-grid');
+        
+        produtosApi.forEach(produto => {
+            const produtoCard = document.createElement('div');
+            produtoCard.className = 'produto-card';
+            produtoCard.setAttribute('data-categoria', 'camisetas');
+            produtoCard.setAttribute('data-preco', produto.preco);
+            produtoCard.setAttribute('data-lancamento', '2025-01-15');
+            produtoCard.setAttribute('data-id', produto.idProduto);
+            
+            produtoCard.innerHTML = `
+                <div class="produto-imagem">
+                    <img src="images/bruxo.jpg" alt="${produto.nome}">
+                    <div class="produto-overlay">
+                        <button class="ver-rapido">Ver rápido</button>
+                    </div>
+                </div>
+                <h4>${produto.nome}</h4>
+                <p class="preco">R$ ${produto.preco.toFixed(2).replace('.', ',')}</p>
+                <div class="cores-disponiveis">
+                    <span class="cor-opcao cor-preta"></span>
+                    <span class="cor-opcao cor-branca"></span>
+                    <span class="cor-opcao cor-cinza"></span>
+                </div>
+                <div class="descricao-produto-oculta">
+                    <p>${produto.descricao}</p>
+                </div>
+                <button class="adicionar-carrinho">Adicionar ao Carrinho</button>
+            `;
+            
+            produtosGrid.appendChild(produtoCard);
+        });
+    }
+    adicionarProdutosNaTela(produtosApi);
 
     // Função para filtrar produtos por categoria
     function filtrarProdutos(categoria) {
@@ -94,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Abrir modal ao clicar em "Ver rápido"
-    botaoVerRapido.forEach(botao => {
+    document.querySelectorAll('.ver-rapido').forEach(botao => {
         botao.addEventListener('click', function(e) {
             e.preventDefault();
             
@@ -103,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const tituloProduto = card.querySelector('h4').textContent;
             const precoProduto = card.querySelector('.preco').textContent;
             const coresHTML = card.querySelector('.cores-disponiveis').innerHTML;
+            const descricaoProduto = card.querySelector('.descricao-produto-oculta p').textContent;
             
             // Preenche o modal com informações do produto
             modalImagem.src = imagemProduto;
@@ -111,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
             modalCores.innerHTML = coresHTML;
             
             // Adiciona uma descrição genérica baseada no produto
-            modalDescricao.textContent = `${tituloProduto} - Peça exclusiva com design urbano, confortável e versátil para seu estilo street wear. Perfeito para o dia a dia com qualidade premium.`;
+            modalDescricao.textContent = `${descricaoProduto}`;
             
             // Exibe o modal
             modalProduto.style.display = 'block';
@@ -179,10 +222,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const preco = parseFloat(precoString);
 
             const lista = JSON.parse(localStorage.getItem("carrinho")) || [];
-            const novoId = lista.length > 0 ? lista[lista.length - 1].id + 1 : 1;
+            const novoId = lista.length > 0 ? lista[lista.length - 1].idBanco + 1 : 1;
           
             const item = {
-              id: novoId,
+              idBanco: novoId,
+              idProduto: parseInt(card.getAttribute("data-id")),
               nome,
               preco
             };
@@ -288,3 +332,21 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(styleSheet);
 });
+
+// Função para consumir a API e armazenar os dados
+async function fetchProdutos() {
+    try {
+        // Realiza a requisição para a API
+        const response = await fetch('http://localhost:3000/produtos');
+
+        // Verifica se a resposta foi bem-sucedida
+        if (!response.ok) {
+            throw new Error('Erro na requisição: ' + response.status);
+        }
+
+        // Converte a resposta em JSON
+        return await response.json();    
+    } catch (error) {
+        console.error('Erro ao consumir a API:', error);
+    }
+}

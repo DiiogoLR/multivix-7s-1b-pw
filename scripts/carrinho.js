@@ -12,6 +12,7 @@ const btnLimparCarrinho = document.querySelector('.btn-limpar-carrinho');
 const recomendadosGrid = document.querySelector('.recomendados-grid');
 const aplicarCupomBtn = document.querySelector('.aplicar-cupom');
 
+console.log("Itens no carrinho:");
 console.log(carrinho);
 
 // Funções auxiliares
@@ -23,7 +24,7 @@ function formatarPreco(preco) {
 function inicializarCarrinho() {
     atualizarContadorCarrinho();
     renderizarCarrinho();
-    renderizarMiniCarrinho();
+    //renderizarMiniCarrinho();
     carregarProdutosRecomendados();
 }
 
@@ -64,7 +65,7 @@ function renderizarMiniCarrinho() {
                 <div class="mini-item-preco">${formatarPreco(item.preco)}</div>
                 <div class="mini-item-quantidade">Qtd: ${item.quantidade}</div>
             </div>
-            <button class="mini-item-remover" data-id="${item.id}">&times;</button>
+            <button class="mini-item-remover" data-id="${item.idProduto}">&times;</button>
         `;
         
         miniCarrinhoItens.appendChild(miniCarrinhoItem);
@@ -100,14 +101,34 @@ function renderizarCarrinho() {
     }
     
     carrinhoItens.innerHTML = '';
+
+    let agrupado = [];
+    console.log("Itens pré agrupamento:", agrupado);
+
+    carrinho.forEach(produto => {
+        const existente = agrupado.find(p => p.nome === produto.nome);
+        if (existente) {
+            existente.quantidade++;
+        } else {
+            agrupado.push({
+                idProduto: produto.idProduto,
+                nome: produto.nome,
+                preco: produto.preco,
+                quantidade: 1
+            });
+        }
+    });
     
-    carrinho.forEach(item => {
+    console.log("Itens pós agrupamento:", agrupado);
+
+    agrupado = agrupado.sort((a, b) => a.nome.localeCompare(b.nome));
+    agrupado.forEach(item => {
         const carrinhoItem = document.createElement('div');
         carrinhoItem.classList.add('carrinho-item');
         
         carrinhoItem.innerHTML = `
             <div class="item-produto">
-                <img src="${"./images/" + item.nome.toLowerCase().trim().replace(" ", "-") + ".jpg"}" alt="${item.nome}" class="item-imagem">
+                <img src="${"./images/bruxo.jpg"}" alt="${item.nome}" class="item-imagem">
                 <div class="item-info">
                     <h4>${item.nome}</h4>
                     <p>${item.categoria || 'Moda Urbana'}</p>
@@ -116,14 +137,14 @@ function renderizarCarrinho() {
             <div class="item-preco">${formatarPreco(item.preco)}</div>
             <div class="item-quantidade-container">
                 <div class="item-quantidade">
-                    <button class="btn-quantidade btn-diminuir" data-id="${item.id}">-</button>
+                    <button class="btn-quantidade btn-diminuir" data-id="${item.idProduto}">-</button>
                     <input type="text" class="quantidade-valor" value="${item.quantidade || 1}" readonly>
-                    <button class="btn-quantidade btn-aumentar" data-id="${item.id}">+</button>
+                    <button class="btn-quantidade btn-aumentar" data-id="${item.idProduto}">+</button>
                 </div>
             </div>
             <div class="item-subtotal">${formatarPreco(item.preco * (item.quantidade || 1))}</div>
             <div class="item-acoes">
-                <button class="btn-remover" data-id="${item.id}">&times;</button>
+                <button class="btn-remover" data-id="${item.idProduto}">&times;</button>
             </div>
         `;
         
@@ -141,6 +162,7 @@ function renderizarCarrinho() {
         });
         
         carrinhoItem.querySelector('.btn-remover').addEventListener('click', (e) => {
+            console.log("Remover item do carrinho:", e.target.dataset.id);
             const id = e.target.dataset.id;
             removerItemCarrinho(id);
         });
@@ -155,7 +177,7 @@ function renderizarCarrinho() {
 // Adicionar item ao carrinho
 function adicionarAoCarrinho(produto) {
     // Verificar se o produto já está no carrinho
-    const itemExistente = carrinho.find(item => item.id === produto.id);
+    const itemExistente = carrinho.find(item => item.idProduto === produto.idProduto);
     
     if (itemExistente) {
         itemExistente.quantidade += 1;
@@ -168,37 +190,63 @@ function adicionarAoCarrinho(produto) {
     
     salvarCarrinho();
     atualizarContadorCarrinho();
-    renderizarMiniCarrinho();
+    //renderizarMiniCarrinho();
     renderizarCarrinho();
     abrirMiniCarrinho();
 }
 
 // Atualizar quantidade de um item
 function atualizarQuantidadeItem(id, delta) {
-    const item = carrinho.find(item => item.id === id);
-    
-    if (item) {
-        item.quantidade += delta;
-        
-        if (item.quantidade <= 0) {
-            removerItemCarrinho(id);
-            return;
-        }
-        
-        salvarCarrinho();
-        atualizarContadorCarrinho();
-        renderizarMiniCarrinho();
-        renderizarCarrinho();
+    const item = carrinho.find(item => parseInt(item.idProduto) === parseInt(id));
+    console.log("Item encontrado:", item);
+
+    const novoId = carrinho.length > 0 ? carrinho[carrinho.length - 1].idBanco + 1 : 1;
+    console.log("Novo ID:", novoId);
+    console.log("Carrinho:", carrinho);
+    console.log("Delta:", parseInt(delta));
+
+    // Remove
+    if (parseInt(delta) < 0) {
+        carrinho = carrinho.filter(i => parseInt(i.idBanco) != parseInt(item.idBanco));
+    // Adiciona
+    } else if (parseInt(delta) > 0) {
+        const itemNovo = {
+            idBanco: novoId,
+            idProduto: parseInt(item.idProduto),
+            nome: item.nome,
+            preco: item.preco
+        };
+
+        carrinho.push(itemNovo);
+        localStorage.setItem("carrinho", JSON.stringify(carrinho));
     }
+
+    salvarCarrinho();
+    atualizarContadorCarrinho();
+    renderizarCarrinho();
+
+    // if (item) {
+    //     parseInt(item.quantidade) += parseInt(delta);
+        
+    //     if (parseInt(item.quantidade) <= 0) {
+    //         removerItemCarrinho(id);
+    //         return;
+    //     }
+        
+    //     salvarCarrinho();
+    //     atualizarContadorCarrinho();
+    //     //renderizarMiniCarrinho();
+    //     renderizarCarrinho();
+    // }
 }
 
 // Remover item do carrinho
 function removerItemCarrinho(id) {
-    carrinho = carrinho.filter(item => item.id !== id);
+    carrinho = carrinho.filter(item => parseInt(item.idProduto) !== parseInt(id));
     
     salvarCarrinho();
     atualizarContadorCarrinho();
-    renderizarMiniCarrinho();
+    //renderizarMiniCarrinho();
     renderizarCarrinho();
 }
 
@@ -208,7 +256,7 @@ function limparCarrinho() {
     
     salvarCarrinho();
     atualizarContadorCarrinho();
-    renderizarMiniCarrinho();
+    //renderizarMiniCarrinho();
     renderizarCarrinho();
 }
 
@@ -230,25 +278,25 @@ const produtosRecomendados = [
         id: 'p001',
         nome: 'Camiseta Street Urban',
         preco: 79.90,
-        imagem: 'images/produto1.jpg'
+        imagem: 'images/bruxo.jpg'
     },
     {
         id: 'p002',
         nome: 'Calça Jeans Destroyed',
         preco: 159.90,
-        imagem: 'images/produto2.jpg'
+        imagem: 'images/bruxo.jpg'
     },
     {
         id: 'p003',
         nome: 'Tênis Casual Urban',
         preco: 199.90,
-        imagem: 'images/produto3.jpg'
+        imagem: 'images/bruxo.jpg'
     },
     {
         id: 'p004',
         nome: 'Boné Aba Reta Style',
         preco: 69.90,
-        imagem: 'images/produto4.jpg'
+        imagem: 'images/bruxo.jpg'
     }
 ];
 
@@ -456,7 +504,7 @@ const carrinhoSalvo = localStorage.getItem('carrinho');
 if (carrinhoSalvo) {
     carrinho = JSON.parse(carrinhoSalvo);
     atualizarContadorCarrinho();
-    renderizarMiniCarrinho();
+    //renderizarMiniCarrinho();
     renderizarCarrinho();
 }
 }
@@ -531,26 +579,26 @@ document.querySelector('.btn-finalizar').addEventListener('click', () => {
 
 // Inicializar elementos dinâmicos do carrinho
 function inicializarElementosCarrinho() {
-criarMiniCarrinho();
-inicializarContadorCarrinho();
-inicializarCarrinho();
+    criarMiniCarrinho();
+    inicializarContadorCarrinho();
+    inicializarCarrinho();
 }
 
 // Chamar inicialização quando o DOM estiver pronto
 if (document.readyState === 'loading') {
-document.addEventListener('DOMContentLoaded', inicializarElementosCarrinho);
+    document.addEventListener('DOMContentLoaded', inicializarElementosCarrinho);
 } else {
-inicializarElementosCarrinho();
+    inicializarElementosCarrinho();
 }
 
 // API pública para ser usada em outras páginas
 window.carrinhoAPI = {
-adicionarAoCarrinho,
-removerItemCarrinho,
-atualizarQuantidadeItem,
-limparCarrinho,
-abrirMiniCarrinho,
-fecharMiniCarrinho,
-obterCarrinho: () => carrinho,
-calcularTotalCarrinho
+    adicionarAoCarrinho,
+    removerItemCarrinho,
+    atualizarQuantidadeItem,
+    limparCarrinho,
+    abrirMiniCarrinho,
+    fecharMiniCarrinho,
+    obterCarrinho: () => carrinho,
+    calcularTotalCarrinho
 };
