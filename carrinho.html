@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - Street Style & Co</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/produtos.css">
+    <link rel="stylesheet" href="styles/carrinho.css">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">Street Style & Co</div>
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="index.html#sobre">Sobre Nós</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="index.html#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <div class="carrinho-container">
+                <div class="carrinho-icon">
+                    <span class="carrinho-contador">0</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+                </div>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mini Carrinho -->
+    <div class="mini-carrinho">
+        <div class="mini-carrinho-header">
+            <h3>Seu Carrinho</h3>
+            <button class="fechar-carrinho">&times;</button>
+        </div>
+        <div class="mini-carrinho-itens">
+            <!-- Os itens do carrinho serão inseridos via JavaScript -->
+        </div>
+        <div class="mini-carrinho-footer">
+            <div class="mini-carrinho-total">
+                <span>Total:</span>
+                <span class="valor-total">R$ 0,00</span>
+            </div>
+            <a href="carrinho.html" class="btn-ver-carrinho">Ver Carrinho</a>
+            <a href="checkout.html" class="btn-finalizar">Finalizar Compra</a>
+        </div>
+    </div>
+    <div class="mini-carrinho-overlay"></div>
+
+    <section class="banner-carrinho">
+        <div class="container">
+            <h1>SEU CARRINHO</h1>
+            <p>Revise seus itens antes de finalizar a compra</p>
+        </div>
+    </section>
+
+    <section class="carrinho-conteudo">
+        <div class="container">
+            <div class="carrinho-grid">
+                <div class="carrinho-principal">
+                    <div class="carrinho-tabela">
+                        <div class="carrinho-cabecalho">
+                            <div class="cabecalho-produto">Produto</div>
+                            <div class="cabecalho-preco">Preço</div>
+                            <div class="cabecalho-quantidade">Quantidade</div>
+                            <div class="cabecalho-subtotal">Subtotal</div>
+                            <div class="cabecalho-remover"></div>
+                        </div>
+                        
+                        <div class="carrinho-itens">
+                            <!-- Os itens do carrinho serão inseridos via JavaScript -->
+                        </div>
+                        
+                        <div class="carrinho-acoes">
+                            <a href="produtos.html" class="btn-continuar-comprando">Continuar Comprando</a>
+                            <button class="btn-limpar-carrinho">Limpar Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carrinho-resumo">
+                    <h3>Resumo do Pedido</h3>
+                    <div class="resumo-detalhes">
+                        <div class="resumo-linha">
+                            <span>Subtotal</span>
+                            <span class="resumo-subtotal">R$ 0,00</span>
+                        </div>
+                        <div class="resumo-linha">
+                            <span>Entrega</span>
+                            <span class="resumo-entrega">Calculado no checkout</span>
+                        </div>
+                        <div class="resumo-linha resumo-total">
+                            <span>Total</span>
+                            <span class="resumo-valor-total">R$ 0,00</span>
+                        </div>
+                    </div>
+                    <div class="resumo-cupom">
+                        <label for="cupom">Cupom de Desconto</label>
+                        <div class="input-cupom">
+                            <input type="text" id="cupom" placeholder="Digite seu cupom">
+                            <button class="aplicar-cupom">Aplicar</button>
+                        </div>
+                    </div>
+                    <a href="checkout.html" class="btn-finalizar-checkout">Finalizar Compra</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="produtos-recomendados">
+        <div class="container">
+            <h2>VOCÊ TAMBÉM PODE GOSTAR</h2>
+            <div class="recomendados-grid">
+                <!-- Os produtos recomendados serão inseridos via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>RECEBA NOSSAS NOVIDADES</h2>
+                <p>Seja o primeiro a conhecer nossos lançamentos e promoções exclusivas.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Seu melhor e-mail">
+                    <button class="botao-newsletter">Inscrever-se</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Street Style & Co</h3>
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="index.html#sobre">Sobre Nós</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="index.html#contato">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="links-sociais">
+                    <a href="#" class="icone-social">FB</a>
+                    <a href="#" class="icone-social">IG</a>
+                    <a href="#" class="icone-social">TW</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Street Style & Co. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/index.js"></script>
+    <script src="scripts/carrinho.js"></script>
+</body>
+</html>
