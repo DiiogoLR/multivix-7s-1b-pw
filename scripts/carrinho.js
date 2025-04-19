@@ -5,8 +5,6 @@ let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 const miniCarrinho = document.querySelector('.mini-carrinho');
 const miniCarrinhoOverlay = document.querySelector('.mini-carrinho-overlay');
 const carrinhoContador = document.querySelector('.carrinho-contador');
-const miniCarrinhoItens = document.querySelector('.mini-carrinho-itens');
-const valorTotal = document.querySelector('.valor-total');
 const carrinhoItens = document.querySelector('.carrinho-itens');
 const resumoSubtotal = document.querySelector('.resumo-subtotal');
 const resumoValorTotal = document.querySelector('.resumo-valor-total');
@@ -14,8 +12,8 @@ const btnLimparCarrinho = document.querySelector('.btn-limpar-carrinho');
 const recomendadosGrid = document.querySelector('.recomendados-grid');
 const aplicarCupomBtn = document.querySelector('.aplicar-cupom');
 
-console.log("Itens no carrinho:");
-console.log(carrinho);
+document.querySelector(".carrinho-contador").textContent = 0;
+console.log(document.querySelector(".carrinho-contador").textContent);
 
 // Funções auxiliares
 function formatarPreco(preco) {
@@ -26,7 +24,7 @@ function formatarPreco(preco) {
 function inicializarCarrinho() {
     atualizarContadorCarrinho();
     renderizarCarrinho();
-    //renderizarMiniCarrinho();
+
     carregarProdutosRecomendados();
 }
 
@@ -37,51 +35,13 @@ function salvarCarrinho() {
 
 // Atualizar contador do carrinho
 function atualizarContadorCarrinho() {
-    const quantidadeTotal = carrinho.reduce((total, item) => total + item.quantidade, 0);
+    const quantidadeTotal = parseInt(carrinho.length) || 0;
     carrinhoContador.textContent = quantidadeTotal;
 }
 
 // Calcular total do carrinho
 function calcularTotalCarrinho() {
     return carrinho.reduce((total, item) => total + item.preco, 0);
-}
-
-// Renderizar mini carrinho
-function renderizarMiniCarrinho() {
-    miniCarrinhoItens.innerHTML = '';
-    
-    if (carrinho.length === 0) {
-        miniCarrinhoItens.innerHTML = '<p>Seu carrinho está vazio.</p>';
-        valorTotal.textContent = formatarPreco(0);
-        return;
-    }
-    
-    carrinho.forEach(item => {
-        const miniCarrinhoItem = document.createElement('div');
-        miniCarrinhoItem.classList.add('mini-carrinho-item');
-        
-        miniCarrinhoItem.innerHTML = `
-            <img src="${item.imagem}" alt="${item.nome}" class="mini-item-imagem">
-            <div class="mini-item-detalhes">
-                <h4 class="mini-item-nome">${item.nome}</h4>
-                <div class="mini-item-preco">${formatarPreco(item.preco)}</div>
-                <div class="mini-item-quantidade">Qtd: ${item.quantidade}</div>
-            </div>
-            <button class="mini-item-remover" data-id="${item.idProduto}">&times;</button>
-        `;
-        
-        miniCarrinhoItens.appendChild(miniCarrinhoItem);
-        
-        // Adicionar evento para remover item
-        miniCarrinhoItem.querySelector('.mini-item-remover').addEventListener('click', (e) => {
-            e.stopPropagation();
-            const id = e.target.dataset.id;
-            removerItemCarrinho(id);
-        });
-    });
-    
-    const total = calcularTotalCarrinho();
-    valorTotal.textContent = formatarPreco(total);
 }
 
 // Renderizar página de carrinho
@@ -95,7 +55,7 @@ function renderizarCarrinho() {
                 <a href="produtos.html">Continuar Comprando</a>
             </div>
         `;
-        
+
         // Atualizar resumo
         if (resumoSubtotal) resumoSubtotal.textContent = formatarPreco(0);
         if (resumoValorTotal) resumoValorTotal.textContent = formatarPreco(0);
@@ -105,7 +65,6 @@ function renderizarCarrinho() {
     carrinhoItens.innerHTML = '';
 
     let agrupado = [];
-    console.log("Itens pré agrupamento:", agrupado);
 
     carrinho.forEach(produto => {
         const existente = agrupado.find(p => p.nome === produto.nome);
@@ -120,8 +79,6 @@ function renderizarCarrinho() {
             });
         }
     });
-    
-    console.log("Itens pós agrupamento:", agrupado);
 
     agrupado = agrupado.sort((a, b) => a.nome.localeCompare(b.nome));
     agrupado.forEach(item => {
@@ -192,7 +149,6 @@ function adicionarAoCarrinho(produto) {
     
     salvarCarrinho();
     atualizarContadorCarrinho();
-    //renderizarMiniCarrinho();
     renderizarCarrinho();
     abrirMiniCarrinho();
 }
@@ -200,12 +156,8 @@ function adicionarAoCarrinho(produto) {
 // Atualizar quantidade de um item
 function atualizarQuantidadeItem(id, delta) {
     const item = carrinho.find(item => parseInt(item.idProduto) === parseInt(id));
-    console.log("Item encontrado:", item);
 
     const novoId = carrinho.length > 0 ? carrinho[carrinho.length - 1].idBanco + 1 : 1;
-    console.log("Novo ID:", novoId);
-    console.log("Carrinho:", carrinho);
-    console.log("Delta:", parseInt(delta));
 
     // Remove
     if (parseInt(delta) < 0) {
@@ -221,20 +173,6 @@ function atualizarQuantidadeItem(id, delta) {
     salvarCarrinho();
     atualizarContadorCarrinho();
     renderizarCarrinho();
-
-    // if (item) {
-    //     parseInt(item.quantidade) += parseInt(delta);
-        
-    //     if (parseInt(item.quantidade) <= 0) {
-    //         removerItemCarrinho(id);
-    //         return;
-    //     }
-        
-    //     salvarCarrinho();
-    //     atualizarContadorCarrinho();
-    //     //renderizarMiniCarrinho();
-    //     renderizarCarrinho();
-    // }
 }
 
 // Remover item do carrinho
@@ -243,7 +181,7 @@ function removerItemCarrinho(id) {
     
     salvarCarrinho();
     atualizarContadorCarrinho();
-    //renderizarMiniCarrinho();
+
     renderizarCarrinho();
 }
 
@@ -253,7 +191,7 @@ function limparCarrinho() {
     
     salvarCarrinho();
     atualizarContadorCarrinho();
-    //renderizarMiniCarrinho();
+
     renderizarCarrinho();
 }
 
@@ -501,7 +439,7 @@ const carrinhoSalvo = localStorage.getItem('carrinho');
 if (carrinhoSalvo) {
     carrinho = JSON.parse(carrinhoSalvo);
     atualizarContadorCarrinho();
-    //renderizarMiniCarrinho();
+
     renderizarCarrinho();
 }
 }
@@ -512,18 +450,6 @@ if (e.key === 'carrinho') {
     atualizarCarrinhoDoStorage();
 }
 });
-
-// Inicializar contador do carrinho no cabeçalho
-function inicializarContadorCarrinho() {
-const carritoCount = document.createElement('span');
-carritoCount.classList.add('carrinho-contador');
-carritoCount.textContent = '0';
-
-const carritoIcon = document.querySelector('.carrinho-icon');
-if (carritoIcon) {
-    carritoIcon.appendChild(carritoCount);
-}
-}
 
 // Função para criar o mini carrinho dinâmicamente se não existir no HTML
 function criarMiniCarrinho() {
@@ -577,7 +503,6 @@ document.querySelector('.btn-finalizar').addEventListener('click', () => {
 // Inicializar elementos dinâmicos do carrinho
 function inicializarElementosCarrinho() {
     criarMiniCarrinho();
-    inicializarContadorCarrinho();
     inicializarCarrinho();
 }
 

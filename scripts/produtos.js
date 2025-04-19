@@ -252,8 +252,10 @@ document.addEventListener('DOMContentLoaded', async function() {
             lista.push(item);
             localStorage.setItem("carrinho", JSON.stringify(lista));
 
-            // Exibe o carrinho no console
-            console.log("Itens no carrinho:", JSON.parse(localStorage.getItem("carrinho")) || []);
+            const contadorCarrinho = document.querySelector(".carrinho-contador").textContent;
+            document.querySelectorAll(".carrinho-contador").forEach(contador => {
+                contador.textContent = parseInt(contadorCarrinho) + 1;
+            });
 
             // Simulação de adição ao carrinho
             const mensagem = document.createElement('div');
