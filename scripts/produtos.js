@@ -1,5 +1,6 @@
-// Script para a página de produtos
+import { fetchProdutos } from './module/handlerApi.js';
 
+// Script para a página de produtos
 document.addEventListener('DOMContentLoaded', async function() {
     // Elementos do DOM
     const produtosGrid = document.querySelector('.produtos-grid');
@@ -353,21 +354,3 @@ document.addEventListener('DOMContentLoaded', async function() {
     `;
     document.head.appendChild(styleSheet);
 });
-
-// Função para consumir a API e armazenar os dados
-async function fetchProdutos() {
-    try {
-        // Realiza a requisição para a API
-        const response = await fetch('http://localhost:3000/produtos');
-
-        // Verifica se a resposta foi bem-sucedida
-        if (!response.ok) {
-            throw new Error('Erro na requisição: ' + response.status);
-        }
-
-        // Converte a resposta em JSON
-        return await response.json();    
-    } catch (error) {
-        console.error('Erro ao consumir a API:', error);
-    }
-}
