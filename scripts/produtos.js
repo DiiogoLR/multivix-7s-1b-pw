@@ -72,6 +72,27 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
     adicionarProdutosNaTela(produtosApi);
 
+    // Animação nos botões de adicionar ao carrinho
+    const botoesCarro = document.querySelectorAll('.adicionar-carrinho');
+
+    botoesCarro.forEach(botao => {
+        botao.addEventListener('click', function() {
+            const textoOriginal = this.textContent;
+
+            // Muda o texto e desabilita o botão temporariamente
+            this.textContent = 'Adicionado ✓';
+            this.disabled = true;
+            this.style.backgroundColor = '#4CAF50';
+
+            // Volta ao estado original após 2 segundos
+            setTimeout(() => {
+                this.textContent = textoOriginal;
+                this.disabled = false;
+                this.style.backgroundColor = '';
+            }, 2000);
+        });
+    });
+
     // Função para filtrar produtos por categoria
     function filtrarProdutos(categoria) {
         let produtosVisiveis = 0;
@@ -92,7 +113,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Função para ordenar produtos
     function ordenarProdutos(criterio) {
         const cards = Array.from(todosCards);
-        
+
         cards.sort((a, b) => {
             if (criterio === 'preco-baixo') {
                 return parseFloat(a.getAttribute('data-preco')) - parseFloat(b.getAttribute('data-preco'));
@@ -104,7 +125,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             // Relevância (padrão) - mantém a ordem original
             return 0;
         });
-        
+
         // Reordenar os cards no DOM
         cards.forEach(card => {
             produtosGrid.appendChild(card);
@@ -115,7 +136,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     filtroBotoes.forEach(botao => {
         botao.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             // Remove classe ativa de todos os botões
             filtroBotoes.forEach(btn => btn.classList.remove('filtro-ativo'));
             

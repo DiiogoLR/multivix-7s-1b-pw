@@ -25,37 +25,37 @@
   },
   {
     "idProduto": 5,
-    "nome": "Moletom Gola Alta “Bruno”",
+    "nome": "Moletom Gola Alta",
     "descricao": "O Casaco Moletom Gola Alta Oversized é ideal para o inverno. Gola alta para proteção extra e corte oversized para visual moderno. Confeccionado em moletom felpado 100% algodão, é macio, quentinho e durável. Combina com diversos looks.",
     "preco": 229.9
   },
   {
     "idProduto": 6,
-    "nome": "Moletom “Noah”",
+    "nome": "Moletom",
     "descricao": "Moletom com modelagem blusão e caimento solto. Confortável e estiloso, com toque suave e quentinho. Tecido de alta qualidade e cor Bege Marfim. Moda funcional com estética refinada. Composição: 84% algodão, 13% poliéster, 3% elastano.",
     "preco": 199.9
   },
   {
     "idProduto": 7,
-    "nome": "Bermuda “Luan”",
+    "nome": "Bermuda",
     "descricao": "Bermuda em sarja com elastano. Bolsos faca frontais e bolsos traseiros embutidos com botões. Tecido flexível e versátil, ideal com camisas ou camisetas. Pré-encolhida. Composição: 98% Algodão BCI, 2% Elastano. Etiqueta em cetim para conforto.",
     "preco": 179.9
   },
   {
     "idProduto": 8,
-    "nome": "Bermuda Alfaiatada “João”",
+    "nome": "Bermuda Alfaiatada",
     "descricao": "Bermuda com modelagem reta e caimento solto. Tecido leve, durável e que seca rápido. Composição: 93% Poliéster Reciclado, 7% Elastano. Possui bolsos com zíper, é confortável e não amassa facilmente. Ideal para looks casuais.",
     "preco": 189.9
   },
   {
     "idProduto": 9,
-    "nome": "Calça Reta “Nico”",
+    "nome": "Calça Reta",
     "descricao": "Calça de sarja com algodão egípcio e elastano. Modelagem reta com bolsos faca e traseiros embutidos. Cores vivas e durabilidade garantidas. Sarja Premium, com toque macio e costuras reforçadas. Composição: 97% Algodão Egípcio, 3% Elastano.",
     "preco": 239.9
   },
   {
     "idProduto": 10,
-    "nome": "Calça jogger com amarração",
+    "nome": "Calça Jogger com Amarração",
     "descricao": "Calça jogger masculina feita em sarja com algodão e elastano. Cós elástico com cordão de amarração, bolsos faca, bolsos cargo e posteriores. Barra com punho elástico. Ideal para o dia a dia com estilo e conforto. Composição: 98% Algodão, 2% Elastano.",
     "preco": 309.9
   }

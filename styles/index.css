@@ -135,7 +135,7 @@ header {
     height: 90vh;
     display: flex;
     align-items: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('imagens/hero-background.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/Fundo2.png');
     background-size: cover;
     background-position: center;
     color: var(--texto-claro);
@@ -162,7 +162,6 @@ header {
 
 /* Seção Cativante */
 .cativante {
-    background: no-repeat url("/images/Fundo4.jpg") 200px;
     text-align: center;
 
 }
