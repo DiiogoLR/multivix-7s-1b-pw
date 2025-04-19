@@ -572,3 +572,17 @@ footer {
 .mensagem-sucesso h3 {
     color: var(--marrom-claro);
 }
+
+.grupo-formulario-termos-uso{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+}
+
+.grupo-formulario-termos-uso input[type="checkbox"] {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    margin-right: 16px;
+}
