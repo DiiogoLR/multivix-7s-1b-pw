@@ -69,12 +69,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Valores do formulário
             const nome = document.getElementById('nome').value;
+            const sobrenome = document.getElementById('sobrenome').value;
             const email = document.getElementById('email').value;
             const mensagem = document.getElementById('mensagem').value;
-            
+            const telefone = document.getElementById('telefone').value.replace(/\D/g, '');
+
             // Simulação de envio (em uma aplicação real, isso seria enviado para um servidor)
-            console.log('Formulário enviado:', { nome, email, mensagem });
-            
+            console.log('Formulário enviado:', { nome, sobrenome, email, mensagem , telefone });
+
             // Feedback para o usuário
             const containerFormulario = formularioContato.parentElement;
             const conteudoOriginal = containerFormulario.innerHTML;
@@ -102,7 +104,47 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    const telefoneInput = document.getElementById('telefone');
+
+    if (telefoneInput) {
+        telefoneInput.addEventListener('input', function (e) {
+            let input = e.target.value;
     
+            // Remove tudo que não for número
+            input = input.replace(/\D/g, '');
+    
+            // Limita a 11 dígitos
+            input = input.slice(0, 11);
+    
+            // Aplica a máscara
+            let formatted = '';
+            if (input.length <= 10) {
+                formatted = input.replace(/(\d{0,2})(\d{0,4})(\d{0,4})/, (match, p1, p2, p3) => {
+                    let result = '';
+                    if (p1) result += `(${p1}`;
+                    if (p2) result += `) ${p2}`;
+                    if (p3) result += `-${p3}`;
+                    return result;
+                });
+            } else {
+                formatted = input.replace(/(\d{0,2})(\d{0,5})(\d{0,4})/, (match, p1, p2, p3) => {
+                    let result = '';
+                    if (p1) result += `(${p1}`;
+                    if (p2) result += `) ${p2}`;
+                    if (p3) result += `-${p3}`;
+                    return result;
+                });
+            }
+    
+            // Atualiza o valor no campo
+            e.target.value = formatted;
+    
+            // Move o cursor para o final
+            e.target.setSelectionRange(formatted.length, formatted.length);
+        });
+    }
+
     // Efeito de revelação ao scroll
     const elementosRevelacao = document.querySelectorAll('.recurso, .produto-card, .depoimento');
     
