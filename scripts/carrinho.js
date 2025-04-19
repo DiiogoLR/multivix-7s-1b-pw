@@ -1,3 +1,5 @@
+import { Product } from './model/Product.js';
+
 // Carrinho de compras
 let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 const miniCarrinho = document.querySelector('.mini-carrinho');
@@ -210,12 +212,7 @@ function atualizarQuantidadeItem(id, delta) {
         carrinho = carrinho.filter(i => parseInt(i.idBanco) != parseInt(item.idBanco));
     // Adiciona
     } else if (parseInt(delta) > 0) {
-        const itemNovo = {
-            idBanco: novoId,
-            idProduto: parseInt(item.idProduto),
-            nome: item.nome,
-            preco: item.preco
-        };
+        const itemNovo = new Product(novoId, id, item.nome, item.preco);
 
         carrinho.push(itemNovo);
         localStorage.setItem("carrinho", JSON.stringify(carrinho));

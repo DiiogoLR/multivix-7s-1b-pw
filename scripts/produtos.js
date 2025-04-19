@@ -1,4 +1,5 @@
 import { fetchProdutos } from './module/handlerApi.js';
+import { Product } from './model/Product.js';
 
 // Script para a página de produtos
 document.addEventListener('DOMContentLoaded', async function() {
@@ -246,12 +247,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             const lista = JSON.parse(localStorage.getItem("carrinho")) || [];
             const novoId = lista.length > 0 ? lista[lista.length - 1].idBanco + 1 : 1;
           
-            const item = {
-              idBanco: novoId,
-              idProduto: parseInt(card.getAttribute("data-id")),
-              nome,
-              preco
-            };
+            const item = new Product(novoId, card.getAttribute("data-id"), nome, preco);
           
             lista.push(item);
             localStorage.setItem("carrinho", JSON.stringify(lista));
